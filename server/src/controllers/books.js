@@ -32,8 +32,9 @@ const getAllBooks = async (req, res) => {
     Object.keys(data.docs).forEach((key) => {
       const book = data.docs[key];
 
-      book["bookId"] =
-        book["key"] || book["cover_edition_key"] || book["edition_key"]?.[0];
+      // book["bookId"] =
+      //   book["key"] || book["cover_edition_key"] || book["edition_key"]?.[0];
+      book["bookId"] = book["cover_i"];
       book["bookTitle"] = book["title"];
       book["authorKey"] = book["author_key"]?.[0] ?? "";
       book["authorName"] = book["author_name"]?.[0] ?? "";
@@ -44,7 +45,6 @@ const getAllBooks = async (req, res) => {
         book["cover_edition_key"] +
         ".jpg";
       result.push(book);
-
     });
     res.status(StatusCodes.OK).json({ result, count: result.length });
   } catch (error) {
@@ -88,7 +88,7 @@ const getBook = async (req, res) => {
 // CREATE FAV BOOK
 const createBook = async (req, res) => {
   req.body.createdBy = req.user.userId;
-  console.log("Creaate:", reqbody);
+  console.log("Create:", req.body);
   const book = await Books.create(req.body);
 
   res.status(StatusCodes.CREATED).json({ book });
