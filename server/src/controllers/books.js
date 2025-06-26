@@ -94,6 +94,26 @@ const createBook = async (req, res) => {
   res.status(StatusCodes.CREATED).json({ book });
 };
 
+// UPDATE FAV BOOK
+
+const updateBook = async (req, res) => {
+  const {
+    user: { userId },
+    params: { id: bookId },
+  } = req;
+
+  const book = await Books.findOneAndUpdate(
+    { _id: bookId, createdBy: userId },
+    req.body,
+    { new: true, runValidators: true }
+  );
+
+  if (!book) {
+    throw new NotFoundError(`No book found with id: ${bookId}`);
+  }
+  res.status(StatusCodes.OK).json({ book });
+};
+
 // DELETE FAV Book
 const deleteBook = async (req, res) => {
   const {
@@ -115,5 +135,6 @@ module.exports = {
   getMyBooks,
   getBook,
   createBook,
+  updateBook,
   deleteBook,
 };

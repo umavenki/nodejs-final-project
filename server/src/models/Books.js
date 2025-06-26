@@ -26,6 +26,12 @@ const BooksSchema = new mongoose.Schema(
       ref: "User",
       required: [true, "Please provide user ID who created the Booking"],
     },
+    tag: {
+      type: String,
+    },
+    rating: {
+      type: Number,
+    },
   },
   { timestamps: true }
 );
