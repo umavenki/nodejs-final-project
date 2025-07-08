@@ -52,11 +52,6 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/books" className="nav-link">
-              Search Books
-            </NavLink>
-          </li>
-          <li>
             <NavLink to="/login" className="nav-link login-btn">
               Login
             </NavLink>

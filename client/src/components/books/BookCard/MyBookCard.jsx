@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 
 import StyledBookCard from "./BookCard.styles";
 
-const BookCard = ({ book, onAdd }) => {
+const BookCard = ({ book, onDelete }) => {
   const navigate = useNavigate();
 
   const onImageClick = () => {

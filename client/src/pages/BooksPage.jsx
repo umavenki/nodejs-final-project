@@ -6,7 +6,6 @@ import ListBooks from "../components/books/ListBooks";
 import LoadingWrapper from "../components/loading/LoadingWrapper";
 import ErrorAlert from "../components/error/ErrorAlert";
 import SearchBooks from "../components/books/SearchBooks/SearchBooks";
-import AppliedFilters from "../components/books/SearchBooks/AppliedFilters";
 import { getAllBooks } from "../util/apiBooks";
 import { createBook } from "../util/apiBooks";
 
@@ -21,6 +20,7 @@ const BooksPage = () => {
   const [title, setTitle] = useState(titleVal);
   const [author, setAuthor] = useState(authorVal);
   const [listBooks, setListBooks] = useState([]);
+  const [addedBookIds, setAddedBookIds] = useState([]);
 
   const [searchTerm, setSearchTerm] = useState({
     title: titleVal,
@@ -50,6 +50,8 @@ const BooksPage = () => {
     try {
       const res = await createBook(book, token);
       console.log("Added to My Books:", res.book);
+      setAddedBookIds((prev) => [...prev, book.bookId || book._id]);
+      navigate("/mybooks");
     } catch (err) {
       console.error("Failed to add book:", err);
     }
@@ -64,9 +66,13 @@ const BooksPage = () => {
         setAuthor={setAuthor}
         handleSearch={handleSearch}
       />
-      {searchTerm && <AppliedFilters searchTerm={searchTerm} />}
+      {/* {searchTerm && <AppliedFilters searchTerm={searchTerm} />} */}
       <LoadingWrapper>
-        <ListBooks books={listBooks} onAdd={handleAddToMyBooks} />
+        <ListBooks
+          books={listBooks}
+          onAdd={handleAddToMyBooks}
+          addedBookIds={addedBookIds}
+        />
       </LoadingWrapper>
     </>
   );

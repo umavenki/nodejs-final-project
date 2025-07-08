@@ -2,7 +2,7 @@ import Grid from "@mui/material/Grid";
 
 import BookCard from "./BookCard/BookCard";
 
-const ListBooks = ({ books = [], onAdd }) => {
+const ListBooks = ({ books = [], onAdd, addedBookIds = [] }) => {
   if (!Array.isArray(books)) {
     return <div>NO books found.</div>;
   }
@@ -20,7 +20,11 @@ const ListBooks = ({ books = [], onAdd }) => {
           key={book?.book_id || book?.bookId}
           size={{ xs: 3, sm: 4, md: 4 }}
         >
-          <BookCard book={book} onAdd={onAdd} />
+          <BookCard
+            book={book}
+            onAdd={onAdd}
+            isAdded={addedBookIds.includes(book?.book_id || book?.bookId)}
+          />
         </Grid>
       ))}
     </Grid>

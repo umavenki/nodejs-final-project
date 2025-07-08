@@ -32,8 +32,9 @@ const MyBooksPage = () => {
 
   const handleDeleteMyBook = async (book) => {
     try {
-      const res = await deleteBook(book.bookId, token);
+      const res = await deleteBook(book._id, token);
       console.log("Book delete successfully");
+      navigate("/mybooks");
     } catch (err) {
       console.error("Failed to delete book:", err);
     }

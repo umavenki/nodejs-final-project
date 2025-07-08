@@ -8,15 +8,16 @@ import Button from "@mui/material/Button";
 
 import StyledBookCard from "./BookCard.styles";
 
-const BookCard = ({ book, onAdd }) => {
+const BookCard = ({ book, onAdd, isAdded }) => {
   const navigate = useNavigate();
 
   const onImageClick = () => {
-    navigate(`${book?.book_id}`);
+    navigate(`/books/${book?.book_id || book?.bookId || book?._id}`);
+    // navigate(`${book?.book_id}`);
   };
 
   return (
-    <StyledBookCard onClick={() => onImageClick(book)} elevation={6}>
+    <StyledBookCard elevation={6}>
       <CardMedia
         sx={{
           width: "100%",
@@ -41,11 +42,20 @@ const BookCard = ({ book, onAdd }) => {
       <CardContent>
         <Button
           variant="outlined"
+          color={isAdded ? "success" : "primary"}
           size="small"
-          sx={{ mt: 1 }}
-          onClick={() => onAdd(book)}
+          sx={{
+            mt: 1,
+            textTransform: "none",
+            cursor: isAdded ? "not-allowed" : "pointer",
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            onAdd(book);
+          }}
+          disabled={isAdded}
         >
-          Add to My Books
+          {isAdded ? "Added" : "Add to My Books"}
         </Button>
       </CardContent>
     </StyledBookCard>

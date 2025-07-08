@@ -1,0 +1,324 @@
+{
+	"info": {
+		"_postman_id": "241fdadd-7305-4e62-b44b-b52d78f7bdf9",
+		"name": "NodeJS Final Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16050819"
+	},
+	"item": [
+		{
+			"name": "Final Project",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"roy\",\n    \"email\": \"roy@gmail.com\",\n    \"password\": \"Test@5432\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							],
+							"query": [
+								{
+									"key": "URL",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const jsonData = pm.response.json();",
+									"console.log(\"jsonData.token:\"+jsonData.token);",
+									"pm.globals.set(\"accessToken\",jsonData.token);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"roy@gmail.com\",\"password\":\"Test@5432\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Books",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODU4NGRiNDNkMDBhYmEyNDdlYjBlOTUiLCJuYW1lIjoicGFtIiwiaWF0IjoxNzUwNjE3NTM3LCJleHAiOjE3NTMyMDk1Mzd9.EdKSfRmzT1yY8bPXJ3R1t6-SHCKFTTF8YIkS2-spQfs",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Jaws\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books/all",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create My Favorite Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODU4NGRiNDNkMDBhYmEyNDdlYjBlOTUiLCJuYW1lIjoicGFtIiwiaWF0IjoxNzUwNjE3NTM3LCJleHAiOjE3NTMyMDk1Mzd9.EdKSfRmzT1yY8bPXJ3R1t6-SHCKFTTF8YIkS2-spQfs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookId\":9277556,\n    \"bookTitle\": \"The jewel-hinged jaw\",\n    \"authorKey\": \"OL4391444A\",\n    \"authorName\": \"Samuel R. Delany\",\n    \"bookImage\": \"https://covers.openlibrary.org/a/olid/OL4391444A.jpg\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All My Fav Books",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2ODU4NDY0MTFjZjc5ZWIyOGJhMjg4OWUiLCJuYW1lIjoicGV0ZXIiLCJpYXQiOjE3NTA2MTYwMzYsImV4cCI6MTc1MzIwODAzNn0.kJhQ2qOo6Hvkg-xaHuIRIz749XuolTodktrrdJ99loY",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\":\"Jaws\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Book",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/books/685c94c8276f46c9d7e3ba80",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"685c94c8276f46c9d7e3ba80"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"tag\":\"adventure\",\"rating\":9\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/books/685c94c8276f46c9d7e3ba80",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"685c94c8276f46c9d7e3ba80"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Books",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/books/685c320d18358c161456735b",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"books",
+								"685c320d18358c161456735b"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
