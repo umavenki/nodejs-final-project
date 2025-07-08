@@ -12,7 +12,8 @@ const BookCard = ({ book, onDelete }) => {
   const navigate = useNavigate();
 
   const onImageClick = () => {
-    navigate(`${book?.book_id}`);
+    navigate(`/books/${book?.book_id || book?.bookId || book?._id}`);
+    // navigate(`${book?.book_id}`);
   };
 
   return (

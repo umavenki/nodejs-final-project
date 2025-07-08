@@ -38,13 +38,20 @@ app.use(xss());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(logger("dev"));
-app.use(express.static("public"));
-app.use(favicon(__dirname + "/public/favicon.ico"));
+// app.use(express.static("public"));
 
 // routes
 app.use("/api/v1", mainRouter);
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/books", authUser, booksRouter);
+
+const path = require("path");
+app.use(express.static(path.join(__dirname, "client", "dist")));
+app.use(favicon(__dirname + "/public/favicon.ico"));
+
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "client", "dist", "index.html"));
+});
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
